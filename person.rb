@@ -1,4 +1,6 @@
-class Person
+require './nameable'
+
+class Person < Nameable
   attr_accessor :name, :age, :parent_permission
   attr_reader :id
 
@@ -13,12 +15,13 @@ class Person
     of_age? || @parent_permission
   end
 
+  def correct_name
+    @name
+  end
+
   private
 
   def of_age?
     @age >= 18
   end
 end
-
-person1 = Person.new('Mark', 23)
-puts person1.name

@@ -1,22 +1,49 @@
-require './person'
-require './capitalize_decorator'
-require './trimmer_decorator'
-require './book'
-require './rental'
-require './classroom'
+require './app'
 
-# Test decorators
+def main
+  app = App.new
 
-person = Person.new(22, 'maximilianus')
-puts person.correct_name
-capitalized_person = CapitalizeDecorator.new(person)
-puts capitalized_person.correct_name
-capitalized_trimmed_person = TrimmerDecorator.new(capitalized_person)
-puts capitalized_trimmed_person.correct_name
+  puts 'Welcome to School Library App!'
+  puts ' '
 
-# Test book rentals by persons
+  loop do
+    display_menu
+    option = gets.chomp
 
-book = Book.new('Art of War', 'Sun Tzu')
-book.add_rental('2023-04-13', person)
-puts book.rentals.map(&:person).map(&:name)
-puts person.rentals.map(&:book).map(&:title)
+    if option == '7'
+      puts 'Thank you for using this app!'
+      break
+    end
+
+    options(option, app)
+  end
+end
+
+def options(option, app)
+  case option
+  when '1' then app.list_books
+  when '2' then app.list_people
+  when '3' then app.new_person
+  when '4' then app.new_book
+  when '5' then app.new_rental
+  when '6' then app.list_rentals
+  else
+    puts 'That is not a valid option'
+  end
+end
+
+def display_menu
+  puts ''
+  puts 'Please choose an option by entering a number:'
+  puts '1 - List all books'
+  puts '2 - List all people'
+  puts '3 - Create a person'
+  puts '4 - Create a book'
+  puts '5 - Create a rental'
+  puts '6 - List all rentals for a given person id'
+  puts '7 - Exit'
+  puts ''
+  print 'Enter number: '
+end
+
+main
